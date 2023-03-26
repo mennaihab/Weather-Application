@@ -1,16 +1,45 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.WeatherApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+<!--        app bar ,main color-->
+        <item name="colorPrimary">@color/light_grey</item>
+<!--        to differentiate between appbar color and app bar of the system-->
+        <item name="colorPrimaryVariant">@color/dark_grey</item>
+<!--        color of any thing above primary color-->
         <item name="colorOnPrimary">@color/white</item>
+<!--        text inside app bar-->
+   <item name="android:textColorPrimary">@color/white</item>
+<!--        background color-->
+        <item name="android:colorBackground">@color/black</item>
+
+
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+<!--        <item name="colorSecondary">@color/teal_200</item>-->
+<!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
+<!--        <item name="colorOnSecondary">@color/black</item>-->
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+<!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
+      <item name="materialSwitchStyle">@style/Widget.App.Switch</item>
+        <item name="radioButtonStyle">@style/Widget.App.RadioButton</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Widget.App.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorPrimary">#ff33ff</item>
+        <item name="colorSurfaceVariant">#660066</item>
+    </style>
+    <style name="Widget.App.RadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.RadioButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.RadioButton" parent="">
+        <item name="colorOnSurface">#660066</item>
+        <item name="colorPrimary">@color/pink</item>
     </style>
 </resources>
