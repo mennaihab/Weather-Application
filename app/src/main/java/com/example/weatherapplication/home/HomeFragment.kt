@@ -1,7 +1,8 @@
 package com.example.weatherapplication.home
 
-import android.Manifest
+import android.R
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,13 +13,14 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -34,15 +36,17 @@ import java.io.IOException
 import java.util.*
 
 
-class HomeFragment : Fragment(),LifecycleObserver {
+class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var homeViewModelFactory: HomeViewModelFactory
     private lateinit var hourlyAdapter: HourlyAdapter
     private lateinit var dailyAdapter: DailyAdapter
+
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +61,8 @@ class HomeFragment : Fragment(),LifecycleObserver {
         )
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-      //  getLastLocation()
+        getLastLocation()
+
 
         // homeViewModel.getWeatherData("5e0f6f10e9b7bf48be1f3d781c3aa597",23.2,24.7,"en")
         //homeViewModel.getWeatherData(23.2,22.7,"exclude","5e0f6f10e9b7bf48be1f3d781c3aa597")
@@ -99,9 +104,44 @@ class HomeFragment : Fragment(),LifecycleObserver {
         return view
     }
 
+
+
+
+/*
+        val items = arrayOf("Gps", "Map")
+        val selectedList = ArrayList<Int>()
+        val builder = AlertDialog.Builder(context)
+
+        builder.setTitle("choose your preferences")
+        builder.setMultiChoiceItems(items, null
+        ) { dialog, which, isChecked ->
+            if (isChecked) {
+                selectedList.add(which)
+            } else if (selectedList.contains(which)) {
+                selectedList.remove(Integer.valueOf(which))
+            }
+        }
+
+        builder.setPositiveButton("DONE") { dialogInterface, i ->
+            val selectedStrings = ArrayList<String>()
+
+            for (j in selectedList.indices) {
+                selectedStrings.add(items[selectedList[j]])
+            }
+
+            Toast.makeText(context, "Items selected are: " + Arrays.toString(selectedStrings.toTypedArray()), Toast.LENGTH_SHORT).show()
+        }
+
+        builder.show()
+*/
+
+
+
     override fun onResume() {
         super.onResume()
+        Log.i("mennqa", "habaaal")
         if (checkPermissions()) {
+            Log.i("mennqa", "habaaal")
             getLastLocation()
         }
     }
@@ -144,20 +184,22 @@ class HomeFragment : Fragment(),LifecycleObserver {
 
         if (checkPermissions()) {
             if (isLocationEnabled()) {
-                mFusedLocationClient.lastLocation.addOnCompleteListener{
-                        task ->
-                    var location:Location?=task.result
-                    if(location==null){
-                        requestNewLocationData()
-                    }
-                else{
-                        homeViewModel.getWeatherData(location.latitude, location.longitude,
+                mFusedLocationClient.lastLocation.addOnCompleteListener { task ->
+                    var location: Location? = task.result
+
+                    // if(location==null){
+                    requestNewLocationData()
+                    Log.i("mennqa", location?.latitude.toString())
+                    Log.i("mennqa", location?.longitude.toString())
+                    if (location != null) {
+                        homeViewModel.getWeatherData(
+                            location.latitude, location.longitude,
                             "exclude",
                             "5e0f6f10e9b7bf48be1f3d781c3aa597"
                         )
+                    }
 
-                }}
-
+                }
             } else {
                 // Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -166,9 +208,7 @@ class HomeFragment : Fragment(),LifecycleObserver {
         } else {
             requestPermission()
         }
-
     }
-
 
     @SuppressLint("MissingPermission", "SuspiciousIndentation")
     private fun requestNewLocationData(){
@@ -257,6 +297,3 @@ class HomeFragment : Fragment(),LifecycleObserver {
         _binding = null
     }
 }
-
-
-
