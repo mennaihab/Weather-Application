@@ -1,8 +1,11 @@
 package com.example.weatherapplication.remote
 
 import androidx.room.Entity
+import androidx.room.TypeConverters
+import com.example.weatherapplication.local.Converter
 
-@Entity(tableName = "WeatherDataTable", primaryKeys = ["lat", "lon"])
+@Entity(tableName = "Weather", primaryKeys = ["lat", "lon"])
+@TypeConverters(Converter::class)
 data class WeatherData(
     val current: Current,
     val daily: List<Daily>,

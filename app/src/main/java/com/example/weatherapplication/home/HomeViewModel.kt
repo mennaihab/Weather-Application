@@ -22,7 +22,7 @@ class HomeViewModel(private val _repo : RepositryInterface): ViewModel() {
                 if (response.isSuccessful){
                     withContext(Dispatchers.Main){
                         _weatherData.value = response.body()
-                       // response.body()?.current?.weather?.get(0)?.let { Log.i("menna", it.description) }
+                    //    response.body()?.current?.weather?.get(0)?.let { Log.i("menna", it.description) }
                     }
                 }
             }

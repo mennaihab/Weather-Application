@@ -1,28 +1,25 @@
 package com.example.weatherapplication.home
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.weatherapplication.databinding.FragmentHomeBinding
+import com.example.weatherapplication.local.LocalSourceImp
 import com.example.weatherapplication.location.PERMISSION_ID
 import com.example.weatherapplication.remote.Repositry
 import com.example.weatherapplication.remote.WeatherClient
@@ -30,19 +27,20 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import java.io.IOException
 import java.util.*
 
 
-class HomeFragment : Fragment(),LifecycleObserver {
+class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var homeViewModelFactory: HomeViewModelFactory
     private lateinit var hourlyAdapter: HourlyAdapter
     private lateinit var dailyAdapter: DailyAdapter
+
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,12 +50,14 @@ class HomeFragment : Fragment(),LifecycleObserver {
         val view = binding.root
         homeViewModelFactory = HomeViewModelFactory(
             Repositry.getInstance(
-                WeatherClient.getInstance()
+                WeatherClient.getInstance(),
+                LocalSourceImp(requireContext())
             )
         )
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-      //  getLastLocation()
+        getLastLocation()
+
 
         // homeViewModel.getWeatherData("5e0f6f10e9b7bf48be1f3d781c3aa597",23.2,24.7,"en")
         //homeViewModel.getWeatherData(23.2,22.7,"exclude","5e0f6f10e9b7bf48be1f3d781c3aa597")
@@ -99,9 +99,12 @@ class HomeFragment : Fragment(),LifecycleObserver {
         return view
     }
 
+
     override fun onResume() {
         super.onResume()
+        Log.i("mennqa", "habaaal")
         if (checkPermissions()) {
+            Log.i("mennqa", "habaaal")
             getLastLocation()
         }
     }
@@ -144,20 +147,24 @@ class HomeFragment : Fragment(),LifecycleObserver {
 
         if (checkPermissions()) {
             if (isLocationEnabled()) {
-                mFusedLocationClient.lastLocation.addOnCompleteListener{
-                        task ->
-                    var location:Location?=task.result
-                    if(location==null){
-                        requestNewLocationData()
-                    }
-                else{
-                        homeViewModel.getWeatherData(location.latitude, location.longitude,
+                mFusedLocationClient.lastLocation.addOnCompleteListener { task ->
+                    var location: Location? = task.result
+
+                    // if(location==null){
+                    requestNewLocationData()
+                    Log.i("mennqa", location?.latitude.toString())
+                    Log.i("mennqa", location?.longitude.toString())
+                  /*  if (location != null) {
+                        homeViewModel.getWeatherData(
+                            location.latitude, location.longitude,
                             "exclude",
                             "5e0f6f10e9b7bf48be1f3d781c3aa597"
                         )
+                    }
 
-                }}
+                   */
 
+                }
             } else {
                 // Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -166,9 +173,7 @@ class HomeFragment : Fragment(),LifecycleObserver {
         } else {
             requestPermission()
         }
-
     }
-
 
     @SuppressLint("MissingPermission", "SuspiciousIndentation")
     private fun requestNewLocationData(){
@@ -197,57 +202,12 @@ class HomeFragment : Fragment(),LifecycleObserver {
             )
         }
 
-
-
     }
 
     private val mLocationCallBack: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
 
             val mLastLocation: Location = locationResult.lastLocation
-            val mGeocoder = context?.let { Geocoder(it, Locale.getDefault()) }
-            var addressString = ""
-
-            // Reverse-Geocoding starts
-            try {
-                val addressList: List<Address> =
-                    mGeocoder?.getFromLocation(
-                        mLastLocation.latitude,
-                        mLastLocation.longitude,
-                        1
-                    ) as List<Address>
-
-                // use your lat, long value here
-                if (addressList.isNotEmpty()) {
-                    val address = addressList[0]
-                    val sb = StringBuilder()
-                    for (i in 0 until address.maxAddressLineIndex) {
-                        sb.append(address.getAddressLine(i)).append("\n")
-                    }
-
-                    if (address.premises != null)
-                        sb.append(address.premises).append(", ")
-
-                    sb.append(address.subAdminArea).append("\n")
-                    sb.append(address.locality).append(", ")
-                    sb.append(address.adminArea).append(", ")
-                    sb.append(address.countryName).append(", ")
-                    sb.append(address.postalCode)
-
-
-                    addressString = sb.toString()
-
-                }
-            } catch (e: IOException) {
-                Toast.makeText(context, "Unable connect to Geocoder", Toast.LENGTH_LONG)
-                    .show()
-            }
-
-            // Finally, the address string is posted in the textView with LatLng.
-            //  latTextView.text = mLastLocation.latitude.toString()
-            //lonTextView.text = mLastLocation.longitude.toString()
-            //textTextView.text = "Address: $addressString"
-
         }
     }
 
@@ -257,6 +217,3 @@ class HomeFragment : Fragment(),LifecycleObserver {
         _binding = null
     }
 }
-
-
-
