@@ -6,7 +6,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsFragment" >
+    tools:context=".map.MapsFragment" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,4 +29,11 @@
             android:text="Search"/>
 
     </LinearLayout>
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        android:text="save"/>
 </fragment>

@@ -1,34 +1,55 @@
 package com.example.weatherapplication.favourite
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherapplication.local.RoomState
+import com.example.weatherapplication.models.FavouritesData
 import com.example.weatherapplication.remote.RepositryInterface
-import com.example.weatherapplication.remote.WeatherData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class FavouritesViewModel (private val _repo : RepositryInterface): ViewModel() {
-    private var _weather : MutableLiveData<List<WeatherData>> = MutableLiveData<List<WeatherData>>()
-    val weather : LiveData<List<WeatherData>> = _weather
+class FavouritesViewModel(private val _repo: RepositryInterface) : ViewModel() {
+    private var _favouriteWeather: MutableStateFlow<RoomState> = MutableStateFlow(RoomState.Loading)
+    val favouriteWeather: StateFlow<RoomState> = _favouriteWeather
 
-    init {
-        getLocalWeatherData()
-    }
 
-    fun deleteProduct(weather: WeatherData){
+
+
+    fun deleteFavourites(fav: FavouritesData) {
         viewModelScope.launch(Dispatchers.IO) {
-            _repo.deleteWeather(weather)
-            getLocalWeatherData()
+            _repo.deleteFavorites(fav)
+            getFavoriteWeathers()
         }
 
     }
 
-    private fun getLocalWeatherData() {
+    fun insertFavourites(fav: FavouritesData) {
         viewModelScope.launch(Dispatchers.IO) {
-            _weather.postValue(_repo.getStoredWeather())
+            _repo.insertFavorites(fav)
+            getFavoriteWeathers()
+        }
+
+    }
+
+    fun getFavoriteWeathers() {
+        viewModelScope.launch {
+            _repo.getAllFavorites()?.catch { e ->
+                _favouriteWeather.value = RoomState.Failure(e)
             }
+                ?.collectLatest {
+
+                    _favouriteWeather.value = RoomState.Success(it)
+                    Log.i("fav view model", "getFavoriteWeathers: " + it)
+                }
         }
     }
+
+
+}
+
 

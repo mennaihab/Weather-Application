@@ -5,7 +5,7 @@ import androidx.room.TypeConverters
 import com.example.weatherapplication.local.Converter
 
 @Entity(tableName = "Weather", primaryKeys = ["lat", "lon"])
-@TypeConverters(Converter::class)
+//@TypeConverters(Converter::class)
 data class WeatherData(
     val current: Current,
     val daily: List<Daily>,
