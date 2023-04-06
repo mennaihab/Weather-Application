@@ -1,15 +1,21 @@
 package com.example.weatherapplication.home
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherapplication.databinding.ItemHourlyBinding
+import com.example.weatherapplication.local.Converter
+import com.example.weatherapplication.local.LocalSourceImp
 import com.example.weatherapplication.remote.Hourly
+import com.example.weatherapplication.remote.Repositry
+import com.example.weatherapplication.remote.WeatherClient
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,10 +25,16 @@ class HourlyAdapter: ListAdapter<Hourly, HourlyAdapter.ViewHolder>(MyDifUnit()) 
     lateinit var context: Context
     lateinit var binding: ItemHourlyBinding
     lateinit var item: List<Hourly>
+    lateinit var repo:Repositry
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
+        repo =   Repositry.getInstance(
+            WeatherClient.getInstance(context),
+            LocalSourceImp.getInstance(context),
+            PreferenceManager.getDefaultSharedPreferences(context)
+        )
         val inflater: LayoutInflater =
             parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = ItemHourlyBinding.inflate(inflater, parent, false)
@@ -41,8 +53,21 @@ class HourlyAdapter: ListAdapter<Hourly, HourlyAdapter.ViewHolder>(MyDifUnit()) 
         Glide.with(context)
             .load("https://openweathermap.org/img/wn/${currentObj.weather.get(0).icon}@2x.png")
             .into(holder.binding.hourImage)
+if(repo.getStringFromSharedPreferences("temperature","kelvin").equals("celesius"))
+{
+   var temperature =  Converter.kelvinToCelsius( currentObj.temp)
+    holder.binding.tempText.text = temperature.toString()+"℃"
+}
+else if(repo.getStringFromSharedPreferences("temperature","kelvin").equals("fahrenheit")){
+    var temperature =  Converter.kelvinToFahrenheit( currentObj.temp)
+    holder.binding.tempText.text = temperature.toString() +"F"
+        }
+        else{
+    holder.binding.tempText.text = currentObj.temp.toString() +"K"
 
-        holder.binding.tempText.text = currentObj.temp.toString()
+        }
+
+
     }
 
 

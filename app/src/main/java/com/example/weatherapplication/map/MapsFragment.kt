@@ -4,6 +4,9 @@ import android.location.Address
 import android.location.Geocoder
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -53,12 +56,14 @@ class MapsFragment : Fragment() {
     ): View? {
 
         binding = FragmentMapsBinding.inflate(inflater, container, false)
+        binding.saveBtn.visibility = View.INVISIBLE
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapsViewModelFactory = MapsViewModelFactory(
-            Repositry.getInstance(
-                WeatherClient.getInstance(),
-                LocalSourceImp(requireContext())
-            )
+           Repositry.getInstance(
+                WeatherClient.getInstance(requireContext()),
+                LocalSourceImp.getInstance(requireContext()),
+              PreferenceManager.getDefaultSharedPreferences(requireContext())
+          )
         )
 
         mapsViewModel = ViewModelProvider(this, mapsViewModelFactory)[MapsViewModel::class.java]
@@ -68,8 +73,9 @@ class MapsFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
         val arg: MapsFragmentArgs by navArgs()
         if (arg.isFromFav) {
+            Log.i("habal","habal")
             binding.saveBtn.visibility = View.VISIBLE
-            binding.saveBtn.text = "save data"
+            binding.saveBtn.text = "add to favourites"
             binding.saveBtn.setOnClickListener {
                 address?.let { it1 -> Log.i("menna", it1.countryName) }
                 address?.let { address ->
@@ -88,6 +94,26 @@ class MapsFragment : Fragment() {
                 }
             }
         }
+        else if(arg.isFromSettingsOrDialogue) {
+            Log.i("habal2", "habal")
+            // binding.saveBtn.visibility = View.VISIBLE
+            binding.saveBtn.text = "save"
+            binding.saveBtn.setOnClickListener {
+                address?.let { it1 -> Log.i("menna", it1.countryName) }
+                address?.let { address ->
+                    val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment().apply {
+                        latitude = address.latitude.toFloat()
+                        longitude = address.longitude.toFloat()
+                        isFromMap = true
+                    }
+                  findNavController().navigate(action)
+                }
+
+
+            }
+        }
+
+        //}
 
         return binding.root
     }
@@ -104,10 +130,12 @@ class MapsFragment : Fragment() {
             ) {
                 if (!binding.searchEditText.text.isNullOrEmpty())
                     goToSearchLocation(binding.searchEditText.text.toString())
+               // binding.saveBtn.visibility = View.VISIBLE
             }
             false
         }
         fusedClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
     }
 
     private fun goToLatLng(latitude: Double, longitude: Double) {
@@ -142,6 +170,10 @@ class MapsFragment : Fragment() {
         mMap.clear()
         mMap.addMarker(MarkerOptions().position(latLng))
         mMap.animateCamera(update)
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.saveBtn.visibility = View.VISIBLE
+        }, 3000)
+      //
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

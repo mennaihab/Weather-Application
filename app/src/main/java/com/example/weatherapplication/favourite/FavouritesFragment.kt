@@ -1,10 +1,8 @@
 package com.example.weatherapplication.favourite
 
 import android.app.ProgressDialog
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,15 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapplication.NetworkManager
 import com.example.weatherapplication.Utils
 import com.example.weatherapplication.databinding.FragmentFavouritesBinding
 import com.example.weatherapplication.local.LocalSourceImp
 import com.example.weatherapplication.local.RoomState
-import com.example.weatherapplication.models.FavouritesData
 import com.example.weatherapplication.remote.Repositry
 import com.example.weatherapplication.remote.WeatherClient
 import kotlinx.coroutines.launch
@@ -55,8 +50,9 @@ class FavouritesFragment : Fragment() {
         val view = binding.root
         favouriteViewModelFactory = FavouritesViewModelFactory(
             Repositry.getInstance(
-                WeatherClient.getInstance(),
-                LocalSourceImp(requireContext())
+                WeatherClient.getInstance(requireContext()),
+                LocalSourceImp.getInstance(requireContext()),
+               PreferenceManager.getDefaultSharedPreferences(requireContext())
             )
         )
         val pd = ProgressDialog(context)
@@ -104,6 +100,7 @@ class FavouritesFragment : Fragment() {
                                 this.adapter = FavouritesAdapter(it.data, {
                                     favouriteViewModel.deleteFavourites(it)
                                 }, {
+                                    if(Utils.isOnline(requireContext())){
                                     Navigation.findNavController(requireView()).navigate(
                                         FavouritesFragmentDirections.actionFavouritesFragmentToHomeFragment()
                                             .apply {
@@ -112,6 +109,10 @@ class FavouritesFragment : Fragment() {
                                             }
 
                                     )
+                                }
+                                    else{
+                                        Toast.makeText(context,"Check your fav  connection", Toast.LENGTH_LONG).show()
+                                    }
                                 })
                                 layoutManager = LinearLayoutManager(requireContext())
                                     .apply { orientation = RecyclerView.VERTICAL }

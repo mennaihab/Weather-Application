@@ -27,7 +27,7 @@
             android:text="Notifications"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+            app:layout_constraintTop_toBottomOf="@+id/temperature_radioGroup" />
 
         <RadioGroup
 
@@ -36,7 +36,7 @@
             android:layout_height="139dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/rounded_radio_group"
-            android:checkedButton="@+id/gps_radio_button"
+            android:checkedButton="@+id/notification_disabled_btn"
 
             android:padding="20dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +44,7 @@
 
             <RadioButton
 
+                android:id="@+id/notification_enabled_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enable"
@@ -52,6 +53,7 @@
 
             <RadioButton
 
+                android:id="@+id/notification_disabled_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Disable"
@@ -188,12 +190,12 @@
 
         <RadioGroup
 
-            android:id="@+id/radioGroup2"
+            android:id="@+id/temperature_radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/rounded_radio_group"
-            android:checkedButton="@+id/english_radio_button"
+            android:checkedButton="@+id/celsius_radio_btn"
             android:padding="20dp"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
@@ -201,6 +203,7 @@
 
             <RadioButton
 
+                android:id="@+id/celsius_radio_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Celsius"
@@ -209,6 +212,7 @@
 
             <RadioButton
 
+                android:id="@+id/kelvin_radio_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kelvin"
@@ -217,6 +221,7 @@
 
             <RadioButton
 
+                android:id="@+id/fahrenheit_radio_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fahrenheit"
@@ -226,18 +231,19 @@
 
         <RadioGroup
 
-
+            android:id="@+id/speed_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/rounded_radio_group"
-            android:checkedButton="@+id/gps_radio_button"
+            android:checkedButton="@+id/mete_radio_btn"
             android:padding="20dp"
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
             <RadioButton
 
+                android:id="@+id/mete_radio_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Meter/Sec"
@@ -246,6 +252,7 @@
 
             <RadioButton
 
+                android:id="@+id/mile_radio_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mile/Hour"

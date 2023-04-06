@@ -8,6 +8,20 @@ import com.example.weatherapplication.remote.Hourly
 import com.google.gson.Gson
 
     class Converter{
+        companion object{
+            fun kelvinToCelsius(temp: Double): Double {
+                var temperature = temp - 273.15
+                return Math.round(temperature * 100.0) / 100.0;
+            }
+            fun kelvinToFahrenheit(temp: Double): Double {
+                var temperature =  temp * 9/5 - 459.67
+                return Math.round(temperature * 100.0) / 100.0;
+            }
+            fun meterPerSecondToMilePerHour(speed: Double): Double {
+                var newSpeed = speed * 2.237
+                return Math.round(newSpeed * 100.0) / 100.0;
+            }
+        }
         @TypeConverter
         fun fromCurrentToGson(current: Current): String = Gson().toJson(current)
 
