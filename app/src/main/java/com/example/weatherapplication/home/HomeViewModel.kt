@@ -48,6 +48,7 @@ class HomeViewModel(private val _repo : RepositryInterface): ViewModel() {
         }
     }
 
+
     fun insertWeather(weather: WeatherData) {
         viewModelScope.launch {
             _repo.insertWeather(weather)

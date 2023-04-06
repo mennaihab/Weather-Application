@@ -62,7 +62,9 @@ class SetUpFragment : Fragment() {
 
                 }
                 else{
-                    val action=SetUpFragmentDirections.actionSetUpFragmentToMapsFragment()
+                    val action=SetUpFragmentDirections.actionSetUpFragmentToMapsFragment().apply {
+                        isFromSettingsOrDialogue = true
+                    }
                     findNavController().navigate(action)
                 }
 

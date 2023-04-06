@@ -15,4 +15,11 @@ interface RepositryInterface {
 
         suspend fun insertFavorites(address: FavouritesData)
         suspend fun deleteFavorites(address: FavouritesData)
+
+        // Shared preferences
+        fun putStringInSharedPreferences(key: String, stringInput: String)
+        fun getStringFromSharedPreferences(key: String, stringDefault: String): String
+        fun putBooleanInSharedPreferences(key: String, booleanInput: Boolean)
+        fun getBooleanFromSharedPreferences(key: String, booleanDefault: Boolean): Boolean
+
 }

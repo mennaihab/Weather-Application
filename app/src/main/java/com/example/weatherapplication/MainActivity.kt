@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
       NavigationUI.setupActionBarWithNavController(this, navController,binding.drawerLayout)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.alertFragment, R.id.favouritesFragment, R.id.settingsFragment,R.id.homeFragment
+                R.id.alertFragment, R.id.favouritesFragment, R.id.settingsFragment,R.id.homeFragment,R.id.mapsFragment
             ), binding.drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
