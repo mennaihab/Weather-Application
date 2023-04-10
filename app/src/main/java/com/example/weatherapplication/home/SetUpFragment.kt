@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapplication.R
+import com.example.weatherapplication.Utils
 import com.example.weatherapplication.databinding.FragmentHomeBinding
+import com.google.android.material.snackbar.Snackbar
 
 
 class SetUpFragment : Fragment() {
@@ -56,23 +58,26 @@ class SetUpFragment : Fragment() {
                 selectedp = items[which]
             }
             builder.setPositiveButton("Ok") { dialog, which ->
-                if (selectedp.equals("Gps")){
-                    val action=SetUpFragmentDirections.actionSetUpFragmentToHomeFragment()
+                if (selectedp.equals("Gps")) {
+                    val action = SetUpFragmentDirections.actionSetUpFragmentToHomeFragment()
                     findNavController().navigate(action)
 
-                }
-                else{
-                    val action=SetUpFragmentDirections.actionSetUpFragmentToMapsFragment().apply {
-                        isFromSettingsOrDialogue = true
+                } else {
+                    if (Utils.isOnline(requireContext())) {
+                        val action =
+                            SetUpFragmentDirections.actionSetUpFragmentToMapsFragment().apply {
+                                isFromSettingsOrDialogue = true
+                            }
+                        findNavController().navigate(action)
+                    } else {
+                        val action = SetUpFragmentDirections.actionSetUpFragmentToHomeFragment()
+                        findNavController().navigate(action)
                     }
-                    findNavController().navigate(action)
                 }
-
             }
-        }
 
-        builder.show()
-    }
+            builder.show()
+        }}
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

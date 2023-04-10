@@ -10,7 +10,7 @@
         android:layout_height="200dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="7dp"
-        app:cardBackgroundColor="@color/cardview_dark_background"
+        app:cardBackgroundColor="@color/blue"
         app:cardCornerRadius="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,8 +35,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
-                android:textColor="@color/white"
+                android:textSize="16sp"
+
+                android:text="@string/not_provided"
+                android:textColor="@color/dark_blue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,8 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
-                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text="@string/not_provided"
+                android:textColor="@color/dark_blue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/hour_image" />
 

@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapplication.Utils
 import com.example.weatherapplication.databinding.ItemAlertBinding
 import com.example.weatherapplication.databinding.ItemFavouriteBinding
+import com.example.weatherapplication.models.AlertsData
 import com.example.weatherapplication.remote.WeatherData
 
-class AlertAdapter (private val onClick:(AlertData)->Unit): ListAdapter<AlertData, AlertAdapter.ViewHolder>(MyDifUnit()) {
+class AlertAdapter (private val onDelete:(AlertsData)->Unit): ListAdapter<AlertsData, AlertAdapter.ViewHolder>(MyDifUnit()) {
 
     lateinit var context: Context
     lateinit var binding: ItemAlertBinding
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
@@ -24,15 +25,13 @@ class AlertAdapter (private val onClick:(AlertData)->Unit): ListAdapter<AlertDat
         return ViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentObj = getItem(position)
-        holder.binding.startDate.text = currentObj.startDate
-        holder.binding.startHour.text = currentObj.startHour
-        holder.binding.endDate.text = currentObj.EndDate
-        holder.binding.endHour.text = currentObj.EndHour
+        holder.binding.startDateText.text = Utils.formatTimeAlert(currentObj?.startTime!!)+"  "+ Utils.formatDateAlert(currentObj.endTime)
+        holder.binding.endDateText.text =Utils.formatTimeAlert(currentObj?.endTime!!)+"  "+ Utils.formatDateAlert(currentObj.endTime)
+        holder.binding.placeText.text = currentObj.location
         holder.binding.alertDeleteButton.setOnClickListener {
-            onClick(getItem(position))
+            onDelete(getItem(position))
         }
 
     }
@@ -41,12 +40,12 @@ class AlertAdapter (private val onClick:(AlertData)->Unit): ListAdapter<AlertDat
         RecyclerView.ViewHolder(binding.root) {}
 
 
-    class MyDifUnit : DiffUtil.ItemCallback<AlertData>() {
-        override fun areItemsTheSame(oldItem: AlertData, newItem: AlertData): Boolean {
+    class MyDifUnit : DiffUtil.ItemCallback<AlertsData>() {
+        override fun areItemsTheSame(oldItem: AlertsData, newItem: AlertsData): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: AlertData, newItem: AlertData): Boolean {
+        override fun areContentsTheSame(oldItem: AlertsData, newItem: AlertsData): Boolean {
             return oldItem == newItem
         }
 

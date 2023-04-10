@@ -23,16 +23,10 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:hint="Search Location"
+            android:hint="@string/search_location"
             android:textColor="@color/white"
             android:inputType="textPersonName"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:textColor="@color/white"
-            android:onClick="searchLocation"
-            android:text="Search"/>
 
     </LinearLayout>
 
@@ -45,7 +39,7 @@
         android:padding="8dp"
         android:layout_margin="5dp"
         android:visibility="invisible"
-        android:text="ChatGlobal"
+        android:text="@string/save"
         android:textColor="#ffffff"
       android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"

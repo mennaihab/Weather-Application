@@ -10,7 +10,7 @@
         android:id="@+id/favourite_item"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:cardBackgroundColor="@color/cardview_dark_background"
+        app:cardBackgroundColor="@color/blue"
         app:cardCornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +26,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="44dp"
-                android:backgroundTint="@color/pink"
-                android:text="Button"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/dark_blue"
+                android:text="@string/remove"
                 app:cornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,9 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="24dp"
-                android:paddingRight="20dp"
-                android:text="TextView"
-                android:textColor="@color/white"
+                android:paddingEnd="20dp"
+                android:text="@string/not_provided"
+                android:textColor="@color/dark_blue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

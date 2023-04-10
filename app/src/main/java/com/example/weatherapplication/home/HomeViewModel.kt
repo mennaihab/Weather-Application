@@ -1,16 +1,12 @@
 package com.example.weatherapplication.home
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapplication.local.RoomState
 import com.example.weatherapplication.local.WeatherRoomState
 import com.example.weatherapplication.remote.ApiState
-import com.example.weatherapplication.remote.Hourly
-import com.example.weatherapplication.remote.RepositryInterface
 import com.example.weatherapplication.remote.WeatherData
+import com.example.weatherapplication.repo.RepositryInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

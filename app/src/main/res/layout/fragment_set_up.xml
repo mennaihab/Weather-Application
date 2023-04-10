@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginTop="20dp"
-        android:text="Ok"
+        android:text="@string/ok"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
         android:layout_marginTop="32dp"
-        android:text="choose your preferences"
+        android:text="@string/choose_your_preferences"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Gps"
+            android:text="@string/gps"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/white" />
 
@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Map"
+            android:text="@string/map"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/white" />
     </RadioGroup>

@@ -2,7 +2,7 @@ package com.example.weatherapplication.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapplication.remote.RepositryInterface
+import com.example.weatherapplication.repo.RepositryInterface
 
 class HomeViewModelFactory (private val repo : RepositryInterface) : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

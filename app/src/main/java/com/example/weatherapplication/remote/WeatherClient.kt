@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import retrofit2.Response
 
-class WeatherClient private constructor(context: Context): RemoteResource  {
+open class WeatherClient private constructor(): RemoteResource  {
 
         val apiService : ApiService by lazy {
             RetrofitHelper.getRetrofitInstance().create(ApiService::class.java)
@@ -17,7 +17,7 @@ class WeatherClient private constructor(context: Context): RemoteResource  {
         @Synchronized
         fun getInstance(context: Context): WeatherClient {
             if (remoteDataSourceInstance == null) {
-                remoteDataSourceInstance = WeatherClient(context)
+                remoteDataSourceInstance = WeatherClient()
             }
             return remoteDataSourceInstance!!
         }

@@ -1,9 +1,8 @@
 package com.example.weatherapplication.map
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapplication.remote.RepositryInterface
+import com.example.weatherapplication.repo.RepositryInterface
 
 
 class MapsViewModelFactory(val repository: RepositryInterface) : ViewModelProvider.Factory {

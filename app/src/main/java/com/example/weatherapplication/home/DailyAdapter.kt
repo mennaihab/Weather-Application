@@ -4,20 +4,18 @@ package com.example.weatherapplication.home
 import android.content.Context
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.weatherapplication.databinding.ItemDailyBinding
-import com.example.weatherapplication.databinding.ItemHourlyBinding
 import com.example.weatherapplication.local.Converter
 import com.example.weatherapplication.local.LocalSourceImp
 import com.example.weatherapplication.remote.Daily
 import com.example.weatherapplication.remote.Hourly
-import com.example.weatherapplication.remote.Repositry
 import com.example.weatherapplication.remote.WeatherClient
+import com.example.weatherapplication.repo.Repositry
 import java.text.SimpleDateFormat
 import java.util.*
 

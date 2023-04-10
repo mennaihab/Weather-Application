@@ -8,8 +8,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:cardBackgroundColor="@color/cardview_dark_background"
+        android:layout_height="100dp"
+        app:cardBackgroundColor="@color/blue"
         app:cardCornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,50 +20,46 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/end_date"
+                android:id="@+id/end_date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/end_hour"
-                app:layout_constraintTop_toBottomOf="@+id/end_hour" />
+                android:layout_marginTop="10dp"
+                android:text="@string/not_provided"
+                android:textColor="@color/dark_blue"
+                app:layout_constraintStart_toStartOf="@+id/start_date_text"
+                app:layout_constraintTop_toBottomOf="@+id/start_date_text" />
 
             <TextView
-                android:id="@+id/start_hour"
+                android:id="@+id/start_date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/not_provided"
+                android:textColor="@color/dark_blue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/start_date"
+                android:id="@+id/place_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/start_hour"
-                app:layout_constraintTop_toBottomOf="@+id/start_hour" />
-
-            <TextView
-                android:id="@+id/end_hour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:text="TextView"
-                app:layout_constraintBaseline_toBaselineOf="@+id/start_hour"
-                app:layout_constraintStart_toEndOf="@+id/start_hour" />
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/not_provided"
+                android:textColor="@color/dark_blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/alert_delete_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="36dp"
-                android:backgroundTint="@color/pink"
-                android:text="delete"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/white"
+                android:text="@string/remove"
+                android:textColor="@color/dark_blue"
                 app:cornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
