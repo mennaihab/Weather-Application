@@ -1,6 +1,7 @@
 package com.example.weatherapplication.local
 
 import android.content.Context
+import com.example.weatherapplication.models.AlertsData
 import com.example.weatherapplication.models.FavouritesData
 import com.example.weatherapplication.remote.WeatherData
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +17,12 @@ class LocalSourceImp private constructor(context: Context):LocalSource {
     private val favouritesDao : FavouritesDao by lazy {
         val db  = WeathertDataBase.getInstance(context)
         db.getFavouritesDao()
+
+    }
+
+    private val alertsDao : AlertsDao by lazy {
+        val db  = WeathertDataBase.getInstance(context)
+        db.getAlertsDao()
 
     }
 
@@ -49,6 +56,18 @@ class LocalSourceImp private constructor(context: Context):LocalSource {
 
     override suspend fun deleteFavorites(address: FavouritesData) {
       favouritesDao.deleteFavourites(address)
+    }
+
+    override fun getAllAlerts(): Flow<List<AlertsData>>? {
+       return alertsDao.getAlerts()
+    }
+
+    override suspend fun insertAlert(alertsData: AlertsData) {
+       alertsDao.insertAlert(alertsData)
+    }
+
+    override suspend fun deleteAlert(alertsData: AlertsData) {
+        alertsDao.deleteAlert(alertsData)
     }
 
 

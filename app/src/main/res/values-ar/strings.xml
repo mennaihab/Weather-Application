@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">الطقس</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">طقس اليوم</string>
+    <string name="favourites">التفضيلات</string>
+    <string name="alerts">المنبهات</string>
+    <string name="settings">الاعدادات</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA5fwAKFDFlrBUmjIBs-wBtbm9c5Lo6AVs</string>
+    <string name="need_permission">اعطي اذن للتطبيق</string>
+    <string name="want_app_to_access_alerts">السماح لتطبيق الطقس</string>
+    <string name="ok">اوافق</string>
+    <string name="cancel">ارفض</string>
+    <string name="notification_channel_title">العنوان</string>
+    <string name="humidity">الرطوبة</string>
+    <string name="clouds">الغيوم</string>
+    <string name="wind_speed">سرعة الرياح</string>
+    <string name="pressure">الضغط</string>
+    <string name="remove">حذف</string>
+    <string name="language">اللغة</string>
+    <string name="location">المكان</string>
+    <string name="english">الانجليزية</string>
+    <string name="arabic">العربية</string>
+    <string name="gps">تحديد الموقع</string>
+    <string name="map">الخريطة</string>
+    <string name="temperature">الحرارة</string>
+    <string name="celsius">سيلزيس</string>
+    <string name="kelvin">كلفن</string>
+    <string name="fahrenheit">فهرنهايت</string>
+    <string name="mile_hour">ميل لكل ساعة</string>
+    <string name="meter_sec">متر لكل ثانية</string>
+    <string name="choose_your_preferences">اختر تفضيلاتك</string>
+    <string name="save_alarm">حفظ المنبه</string>
+    <string name="time">الوقت</string>
+    <string name="to">بداية المدة</string>
+    <string name="from">نهاية المدة</string>
+    <string name="choose_your_alarm">ااضبط منبهك</string>
+    <string name="alarm">المنبه</string>
+    <string name="notification">الاشعارات</string>
+    <string name="search_location">ابحث عن المكان</string>
+    <string name="save">حفظ</string>
+    <string name="dismiss">ازالة</string>
+    <string name="not_provided">N/A</string>
+</resources>

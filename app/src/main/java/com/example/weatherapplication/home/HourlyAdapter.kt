@@ -1,11 +1,9 @@
 package com.example.weatherapplication.home
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,8 +12,8 @@ import com.example.weatherapplication.databinding.ItemHourlyBinding
 import com.example.weatherapplication.local.Converter
 import com.example.weatherapplication.local.LocalSourceImp
 import com.example.weatherapplication.remote.Hourly
-import com.example.weatherapplication.remote.Repositry
 import com.example.weatherapplication.remote.WeatherClient
+import com.example.weatherapplication.repo.Repositry
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +23,7 @@ class HourlyAdapter: ListAdapter<Hourly, HourlyAdapter.ViewHolder>(MyDifUnit()) 
     lateinit var context: Context
     lateinit var binding: ItemHourlyBinding
     lateinit var item: List<Hourly>
-    lateinit var repo:Repositry
+    lateinit var repo: Repositry
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

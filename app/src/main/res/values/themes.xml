@@ -4,15 +4,15 @@
 
         <!-- Primary brand color. -->
 <!--        app bar ,main color-->
-        <item name="colorPrimary">@color/light_grey</item>
+        <item name="colorPrimary">@color/dark_blue</item>
 <!--        to differentiate between appbar color and app bar of the system-->
         <item name="colorPrimaryVariant">@color/dark_grey</item>
 <!--        color of any thing above primary color-->
         <item name="colorOnPrimary">@color/white</item>
 <!--        text inside app bar-->
-   <item name="android:textColorPrimary">@color/white</item>
+   <item name="android:textColorPrimary">@color/blue</item>
 <!--        background color-->
-        <item name="android:colorBackground">@color/black</item>
+        <item name="android:colorBackground">@color/white</item>
 
 
         <!-- Secondary brand color. -->
@@ -39,11 +39,27 @@
     </style>
 
     <style name="ThemeOverlay.App.RadioButton" parent="">
-        <item name="colorOnSurface">#660066</item>
-        <item name="colorPrimary">@color/pink</item>
+        <item name="colorOnSurface">@color/blue</item>
+        <item name="colorPrimary">@color/dark_blue</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/light_grey</item>
+    </style>
+
+    <style name="CustomDatePickerDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="colorAccent">@color/black</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/CustomButtonStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/CustomButtonStyle</item>
+    </style>
+
+    <style name="CustomTimePickerDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="colorAccent">@color/black</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/CustomButtonStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/CustomButtonStyle</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/blue</item>
     </style>
 </resources>

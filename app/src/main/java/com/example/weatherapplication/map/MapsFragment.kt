@@ -1,4 +1,5 @@
 package com.example.weatherapplication.map
+
 import com.example.weatherapplication.R
 import android.location.Address
 import android.location.Geocoder
@@ -19,8 +20,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.weatherapplication.databinding.FragmentMapsBinding
 import com.example.weatherapplication.local.LocalSourceImp
-import com.example.weatherapplication.remote.Repositry
+import com.example.weatherapplication.models.MapLocation
 import com.example.weatherapplication.remote.WeatherClient
+import com.example.weatherapplication.repo.Repositry
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -30,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 class MapsFragment : Fragment() {
     companion object {
         const val ZOOM = 16f
@@ -55,15 +58,24 @@ class MapsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val repo =
+            Repositry.getInstance(
+                WeatherClient.getInstance(requireContext()),
+                LocalSourceImp.getInstance(requireContext()),
+                PreferenceManager.getDefaultSharedPreferences(requireContext())
+            )
+
+
+
         binding = FragmentMapsBinding.inflate(inflater, container, false)
         binding.saveBtn.visibility = View.INVISIBLE
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapsViewModelFactory = MapsViewModelFactory(
-           Repositry.getInstance(
+            Repositry.getInstance(
                 WeatherClient.getInstance(requireContext()),
                 LocalSourceImp.getInstance(requireContext()),
-              PreferenceManager.getDefaultSharedPreferences(requireContext())
-          )
+                PreferenceManager.getDefaultSharedPreferences(requireContext())
+            )
         )
 
         mapsViewModel = ViewModelProvider(this, mapsViewModelFactory)[MapsViewModel::class.java]
@@ -73,8 +85,8 @@ class MapsFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
         val arg: MapsFragmentArgs by navArgs()
         if (arg.isFromFav) {
-            Log.i("habal","habal")
-            binding.saveBtn.visibility = View.VISIBLE
+
+            //binding.saveBtn.visibility = View.VISIBLE
             binding.saveBtn.text = "add to favourites"
             binding.saveBtn.setOnClickListener {
                 address?.let { it1 -> Log.i("menna", it1.countryName) }
@@ -86,31 +98,49 @@ class MapsFragment : Fragment() {
                         )
                         Log.i("menna", "hello")
                         withContext(Dispatchers.Main) {
-                            Log.i("map","map")
-                            val action = MapsFragmentDirections.actionMapsFragmentToFavouritesFragment()
+                            Log.i("map", "map")
+                            val action =
+                                MapsFragmentDirections.actionMapsFragmentToFavouritesFragment()
                             findNavController().navigate(action)
                         }
                     }
                 }
             }
-        }
-        else if(arg.isFromSettingsOrDialogue) {
-            Log.i("habal2", "habal")
+        } else if (arg.isFromSettingsOrDialogue) {
             // binding.saveBtn.visibility = View.VISIBLE
-            binding.saveBtn.text = "save"
+
+
             binding.saveBtn.setOnClickListener {
+                binding.saveBtn.text = "save"
+                address?.latitude?.let { repo.putDoubleInSharedPreferences("latitude", it) }
+                address?.longitude?.let { repo.putDoubleInSharedPreferences("longitude", it) }
                 address?.let { it1 -> Log.i("menna", it1.countryName) }
                 address?.let { address ->
                     val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment().apply {
-                        latitude = address.latitude.toFloat()
-                        longitude = address.longitude.toFloat()
+                       location = MapLocation(address.latitude,address.longitude)
                         isFromMap = true
                     }
-                  findNavController().navigate(action)
+                    findNavController().navigate(action)
                 }
-
-
             }
+        } else if (arg.isFromAlert) {
+            // binding.saveBtn.visibility = View.VISIBLE
+            binding.saveBtn.text = "save Location"
+            binding.saveBtn.setOnClickListener {
+                address?.let { it1 -> Log.i("menna", it1.countryName) }
+                address?.let { address ->
+                    val country: String? = address.countryName
+                    val action =
+                        MapsFragmentDirections.actionMapsFragmentToSelectAlertSpecificationsFragment()
+                            .apply {
+                                latitude = address.latitude.toFloat()
+                                longitude = address.longitude.toFloat()
+                                location = country
+                            }
+                    findNavController().navigate(action)
+                }
+            }
+
         }
 
         //}
@@ -130,7 +160,7 @@ class MapsFragment : Fragment() {
             ) {
                 if (!binding.searchEditText.text.isNullOrEmpty())
                     goToSearchLocation(binding.searchEditText.text.toString())
-               // binding.saveBtn.visibility = View.VISIBLE
+                // binding.saveBtn.visibility = View.VISIBLE
             }
             false
         }
@@ -159,7 +189,12 @@ class MapsFragment : Fragment() {
     }
 
     private fun getSearchAddress(query: String): Address? {
-        val geocoder = Geocoder(requireContext()).getFromLocationName(query, 1)
+        val geocoder =
+            try {
+                Geocoder(requireContext()).getFromLocationName(query, 1)
+            } catch (_: Exception) {
+                null
+            }
         return geocoder?.firstOrNull()
     }
 
@@ -173,7 +208,7 @@ class MapsFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             binding.saveBtn.visibility = View.VISIBLE
         }, 3000)
-      //
+        //
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,7 +1,7 @@
 package com.example.weatherapplication.settings
 
 import androidx.lifecycle.ViewModel
-import com.example.weatherapplication.remote.RepositryInterface
+import com.example.weatherapplication.repo.RepositryInterface
 
 class SettingsViewModel(private val repository: RepositryInterface) : ViewModel() {
 

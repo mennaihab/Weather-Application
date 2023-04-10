@@ -14,141 +14,179 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_width="130dp"
+        android:layout_height="200dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_rec"
-        app:layout_constraintVertical_bias="0.279">
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
         <TextView
-            android:id="@+id/wind"
+            android:id="@+id/humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Wind Speed"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/humidity"
+            android:textColor="@color/dark_blue"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/wind_text"
-            app:layout_constraintTop_toBottomOf="@+id/wind_text" />
-
-        <TextView
-            android:id="@+id/wind_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/wind_image"
-            app:layout_constraintTop_toBottomOf="@+id/wind_image" />
-
-        <TextView
-            android:id="@+id/clouds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
-            android:text="Clouds"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/clouds_text"
-            app:layout_constraintTop_toTopOf="@+id/clouds_text" />
-
-        <TextView
-            android:id="@+id/clouds_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/clouds_image"
-            app:layout_constraintTop_toBottomOf="@+id/clouds_image" />
-
-        <ImageView
-            android:id="@+id/clouds_image"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_cloud"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pressure" />
+            app:layout_constraintTop_toBottomOf="@+id/humidity_image" />
 
-        <ImageView
-            android:id="@+id/wind_image"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="96dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_wind"
-            app:layout_constraintStart_toEndOf="@+id/clouds_image"
+        <TextView
+            android:id="@+id/humidity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/not_provided"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/humidity"
+            app:layout_constraintStart_toStartOf="@+id/humidity"
             app:layout_constraintTop_toBottomOf="@+id/humidity" />
 
         <ImageView
             android:id="@+id/humidity_image"
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:layout_marginStart="96dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_humidity"
-            app:layout_constraintStart_toEndOf="@+id/pressure_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="130dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/day_rec">
 
         <ImageView
-            android:id="@+id/pressure_image"
+            android:id="@+id/clouds_image"
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="28dp"
-            android:src="@drawable/ic_pressure"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_cloud"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/clouds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/clouds"
+            android:textColor="@color/dark_blue"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clouds_image" />
+
+        <TextView
+            android:id="@+id/clouds_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/not_provided"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/clouds"
+            app:layout_constraintStart_toStartOf="@+id/clouds"
+            app:layout_constraintTop_toBottomOf="@+id/clouds" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="130dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <ImageView
+            android:id="@+id/wind_image"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_wind"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/humidity_text"
+            android:id="@+id/wind_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="TextView"
+            android:layout_marginTop="30dp"
+            android:text="@string/not_provided"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/humidity_image"
-            app:layout_constraintTop_toBottomOf="@+id/humidity_image" />
+            app:layout_constraintEnd_toEndOf="@+id/wind"
+            app:layout_constraintStart_toStartOf="@+id/wind"
+            app:layout_constraintTop_toBottomOf="@+id/wind" />
 
         <TextView
-            android:id="@+id/humidity"
+            android:id="@+id/wind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Humidity"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/wind_speed"
+            android:textColor="@color/dark_blue"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/humidity_text"
-            app:layout_constraintTop_toBottomOf="@+id/humidity_text" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wind_image" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="130dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/day_rec">
 
         <TextView
             android:id="@+id/pressure_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="32dp"
-            android:text="TextView"
+            android:layout_marginTop="30dp"
+            android:text="@string/not_provided"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pressure_image" />
+            app:layout_constraintEnd_toEndOf="@+id/pressure"
+            app:layout_constraintStart_toStartOf="@+id/pressure"
+            app:layout_constraintTop_toBottomOf="@+id/pressure" />
 
         <TextView
             android:id="@+id/pressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="24dp"
-            android:text="Presuure"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/pressure"
+            android:textColor="@color/dark_blue"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pressure_text" />
+            app:layout_constraintTop_toBottomOf="@+id/pressure_image" />
 
+        <ImageView
+            android:id="@+id/pressure_image"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_pressure"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
@@ -156,7 +194,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        app:cardBackgroundColor="@color/pink"
+        app:cardBackgroundColor="@color/blue"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -165,29 +203,32 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="335dp"
-            android:layout_height="195dp">
+            android:background="@drawable/rounded_background"
+            android:layout_height="170dp">
 
             <TextView
                 android:id="@+id/temperature_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
-                android:text="TextView"
-                android:textColor="@color/white"
+                android:text="@string/not_provided"
+                android:textColor="@color/dark_blue"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintHorizontal_bias="0.544"
                 app:layout_constraintStart_toEndOf="@+id/icon_image"
-                app:layout_constraintTop_toBottomOf="@+id/desc_text" />
+                app:layout_constraintTop_toBottomOf="@+id/desc_text"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/desc_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="TextView"
-                android:textColor="@color/white"
+                android:text="@string/not_provided"
+                android:textColor="@color/dark_blue"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icon_image"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -209,9 +250,11 @@
         android:id="@+id/location_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:text="@string/not_provided"
+        android:textColor="@color/dark_blue"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -220,19 +263,22 @@
         android:id="@+id/day_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="56dp"
+        android:text="&quot;22/10/200&quot;"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hour_rec"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="35dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
@@ -240,10 +286,22 @@
         android:id="@+id/day_rec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hour_rec" />
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="56dp"
+        android:text="&quot;3:30&quot;"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/day_text"
+        app:layout_constraintTop_toBottomOf="@+id/location_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

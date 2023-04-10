@@ -14,9 +14,8 @@ import com.example.weatherapplication.R
 
 import com.example.weatherapplication.databinding.FragmentSettingsBinding
 import com.example.weatherapplication.local.LocalSourceImp
-import com.example.weatherapplication.map.MapsFragmentDirections
-import com.example.weatherapplication.remote.Repositry
 import com.example.weatherapplication.remote.WeatherClient
+import com.example.weatherapplication.repo.Repositry
 import java.util.*
 
 
@@ -54,34 +53,36 @@ class SettingsFragment : Fragment() {
         }
 
         if(settingsViewModel.getStringFromSharedPreferences("speed","mile").equals("mile")){
-            binding.languageRadioGroup.check(R.id.mile_radio_btn)
+            binding.speedRadioGroup.check(R.id.mile_radio_btn)
         }
         else{
-            binding.languageRadioGroup.check(R.id.mete_radio_btn)
+            binding.speedRadioGroup.check(R.id.mete_radio_btn)
         }
 
         if(settingsViewModel.getStringFromSharedPreferences("temperature","kelvin").equals("celesius")){
-            binding.languageRadioGroup.check(R.id.celsius_radio_btn)
+            binding.temperatureRadioGroup.check(R.id.celsius_radio_btn)
         }
         else if(settingsViewModel.getStringFromSharedPreferences("temperature","kelvin").equals("fahrenheit")){
-            binding.languageRadioGroup.check(R.id.fahrenheit_radio_btn)
+            binding.temperatureRadioGroup.check(R.id.fahrenheit_radio_btn)
         }
         else{
-            binding.languageRadioGroup.check(R.id.kelvin_radio_btn)
+            binding.temperatureRadioGroup.check(R.id.kelvin_radio_btn)
         }
 
 
         binding.arabicRadioButton.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 settingsViewModel.putStringInSharedPreferences("language","arabic")
-              //  changeLanguage("arabic")
+               changeLanguage("ar")
+
 
             }
         }
         binding.englishRadioButton.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 settingsViewModel.putStringInSharedPreferences("language","english")
-                //changeLanguage("english")
+                changeLanguage("en")
+
 
             }
         }
@@ -115,23 +116,12 @@ class SettingsFragment : Fragment() {
 
             }
         }
-        binding.notificationEnabledBtn.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                settingsViewModel.putStringInSharedPreferences("notification","enabled")
 
-            }
-        }
-        binding.notificationDisabledBtn.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                settingsViewModel.putStringInSharedPreferences("notification","disabled")
-
-            }
-        }
         binding.gpsRadioButton.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 settingsViewModel.putStringInSharedPreferences("location","gps")
-                //val action = SettingsFragmentDirections.actionSettingsFragmentToMapsFragment()
-                //findNavController().navigate(action)
+                val action = SettingsFragmentDirections.actionSettingsFragmentToMapsFragment()
+                findNavController().navigate(action)
 
             }
         }
@@ -149,14 +139,14 @@ class SettingsFragment : Fragment() {
 
     private fun changeLanguage(language: String) {
 
-        val locale = Locale(language)
+        val locale = Locale.forLanguageTag(language)
         Locale.setDefault(locale)
         val resources = context?.resources
         val configuration = Configuration()
         configuration.setLocale(locale)
         resources?.updateConfiguration(configuration, resources.displayMetrics)
-        ViewCompat.setLayoutDirection(requireActivity().window.decorView, if (language == "arabic") ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
-        //activity?.recreate()
+        ViewCompat.setLayoutDirection(requireActivity().window.decorView, if (language == "ar") ViewCompat.LAYOUT_DIRECTION_RTL else ViewCompat.LAYOUT_DIRECTION_LTR)
+        activity?.recreate()
 
     }
 
